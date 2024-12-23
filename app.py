@@ -44,7 +44,18 @@ def preprocess_image(image):
     return image
 
 # Streamlit app
-st.title('PELIXA AI - Skin Lesion Classification')
+st.markdown(
+    """
+    <style>
+    .reportview-container {
+        background-color: #87CEEB;  /* Sky blue color */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.title('PELIXA AI - Your Personal Assistant')
 
 # Text input for user queries
 user_input = st.text_input("How can I help you? (e.g., 'What is melanoma?')")
