@@ -3,17 +3,10 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 import io
-from transformers import pipeline
 
 # Set seed for reproducibility
 np.random.seed(42)
 tf.random.set_seed(42)
-
-# Load the intent classification model with a specific model
-nlp_model = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
-
-# Define possible intents
-intents = ["What is melanoma?", "What is skin cancer?", "How can I upload an image?", "What are the symptoms of skin lesions?", "Help"]
 
 # Define the correct class labels mapping
 class_labels = {
@@ -51,26 +44,19 @@ def preprocess_image(image):
     return image
 
 # Streamlit app
-st.title('PELIXA AI - Your Personal Assistant')
+st.title('PELIXA AI - Skin Lesion Classification')
 
 # Text input for user queries
 user_input = st.text_input("How can I help you? (e.g., 'What is melanoma?')")
 
-# Advanced NLP response logic using zero-shot classification
+# Simple NLP response logic
 if user_input:
-    result = nlp_model(user_input, candidate_labels=intents)
-    intent = result['labels'][0]  # Get the top intent
-
-    if intent == "What is melanoma?":
+    if "melanoma" in user_input.lower():
         st.write("Melanoma is a type of skin cancer that develops from the pigment-producing cells known as melanocytes.")
-    elif intent == "What is skin cancer?":
-        st.write("Skin cancer is the abnormal growth of skin cells, often caused by exposure to UV radiation.")
-    elif intent == "How can I upload an image?":
-        st.write("You can upload an image of a skin lesion using the file uploader below.")
-    elif intent == "What are the symptoms of skin lesions?":
-        st.write("Common symptoms include changes in the size, shape, or color of a mole or skin growth.")
-    elif intent == "Help":
-        st.write("You can ask me about skin conditions or upload an image for classification.")
+    elif "help" in user_input.lower():
+        st.write("You can upload an image of a skin lesion for classification.")
+    else:
+        st.write("I'm sorry, I can only provide information about skin lesions. Please ask about melanoma or other skin conditions.")
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
