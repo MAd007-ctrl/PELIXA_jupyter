@@ -2,5 +2,5 @@ streamlit
 tensorflow
 numpy
 pillow
-transformers
+transformers==4.21.1
 matplotlib
