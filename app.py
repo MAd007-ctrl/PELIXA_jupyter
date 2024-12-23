@@ -9,8 +9,8 @@ from transformers import pipeline
 np.random.seed(42)
 tf.random.set_seed(42)
 
-# Load the intent classification model
-nlp_model = pipeline("zero-shot-classification")
+# Load the intent classification model with a specific model
+nlp_model = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
 
 # Define possible intents
 intents = ["What is melanoma?", "What is skin cancer?", "How can I upload an image?", "What are the symptoms of skin lesions?", "Help"]
@@ -51,7 +51,7 @@ def preprocess_image(image):
     return image
 
 # Streamlit app
-st.title('PELIXA AI - Skin Lesion Classification')
+st.title('PELIXA AI - Your Personal Assistant')
 
 # Text input for user queries
 user_input = st.text_input("How can I help you? (e.g., 'What is melanoma?')")
@@ -91,7 +91,7 @@ if uploaded_file is not None:
     
     # Display results
     st.write(f"Predicted Class: {predicted_class}")
-    st.write(f"Confidence: {confidence :.2f}")
+    st.write(f"Confidence: {confidence:.2f}")
     
     # Display bar chart of all predictions
     st.bar_chart(dict(zip([label[1] for label in class_labels.values()], predictions[0])))
