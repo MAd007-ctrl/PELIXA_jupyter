@@ -4,3 +4,4 @@ numpy
 pillow
 transformers==4.21.1
 matplotlib
+pip>=24.3.1
