@@ -44,7 +44,7 @@ def preprocess_image(image):
     return image
 
 # Streamlit app
-st.title('PELIXA AI - Skin Lesion Classification')
+st.title('PELIXA AI - Your Personal Assistant')
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
